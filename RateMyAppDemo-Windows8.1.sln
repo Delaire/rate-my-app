@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateMyAppDemo", "RateMyAppDemo\RateMyAppDemo.csproj", "{8F92D494-C7E4-42DE-9A69-A7980DA22F0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateMyAppDemo", "RateMyAppDemos\Windows81\RateMyAppDemo.csproj", "{8F92D494-C7E4-42DE-9A69-A7980DA22F0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateMyAppLib", "RateMyAppLib\RateMyAppLib.csproj", "{A76D01D0-C569-42AA-A2A9-BD5A19D4BD14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateMyAppLib", "Source_Windows81\RateMyAppLib\RateMyAppLib.csproj", "{A76D01D0-C569-42AA-A2A9-BD5A19D4BD14}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
