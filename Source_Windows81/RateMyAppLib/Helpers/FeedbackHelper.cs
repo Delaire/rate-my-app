@@ -12,16 +12,12 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-#if SILVERLIGHT
-using Microsoft.Phone.Shell;
-using Microsoft.Phone.Tasks;
-#else
 using Windows.Storage;
 using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 using System.Linq;
-#endif
+
 
 
 namespace RateMyApp.Helpers
@@ -138,18 +134,8 @@ namespace RateMyApp.Helpers
         /// </summary>
         public void Launching()
         {
-            //not needed?
-            //var license = Windows.ApplicationModel.Store.CurrentApp.LicenseInformation;
-
-            //// Only load state if app is not trial, app is not activated after
-            //// being tombstoned, and state has not been loaded before.
-
-            //if (!license.IsTrial && 
-            //    State == FeedbackState.Active)
-            //{
-                LoadState();
-            //}
-
+            LoadState();
+            
             // Uncomment for testing
             // State = FeedbackState.FirstReview;
             // State = FeedbackState.SecondReview;

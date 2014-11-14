@@ -15,21 +15,13 @@ using System.Xml.Linq;
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Threading;
-using System.Windows;
 using Windows.ApplicationModel;
 using Windows.System;
 using RateMyApp.Helpers;
-
- 
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
- 
-using System.IO;
-using Windows.Storage;
 using Windows.Security.ExchangeActiveSyncProvisioning;
-using Windows.ApplicationModel.Resources;
 using DoubleAnimation = Windows.UI.Xaml.Media.Animation.DoubleAnimation;
 using Colors = Windows.UI.Colors;
  
