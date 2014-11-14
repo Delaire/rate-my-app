@@ -12,12 +12,13 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using Windows.ApplicationModel;
 using Windows.Storage;
 using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 using System.Linq;
-
+using Windows.System;
 
 
 namespace RateMyApp.Helpers
@@ -232,29 +233,9 @@ namespace RateMyApp.Helpers
         {
             Reviewed();
 
-            string appid = "";
-            var uri = new System.Uri("ms-appx:///AppxManifest.xml");
-            StorageFile file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(uri);
-            using (var rastream = await file.OpenReadAsync())
-            using (var appManifestStream = rastream.AsStreamForRead())
-            {
-                using (var reader = XmlReader.Create(appManifestStream, new XmlReaderSettings { IgnoreWhitespace = true, IgnoreComments = true }))
-                {
-                    var doc = XDocument.Load(reader);
-                    var app = doc.Descendants().Where(e => e.Name.LocalName == "PhoneIdentity").FirstOrDefault();
-                    if (app != null)
-                    {
-                        var idAttribute = app.Attribute("PhoneProductId");
-                        if (idAttribute != null)
-                        {
-                            appid = idAttribute.Value;
-                        }
-                    }
-                }
-            }
-
-            await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + appid));
-
+            //Reviewing the App
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(String.Concat("ms-windows-store:REVIEW?PFN=", Package.Current.Id.FamilyName)));
+            
         }
     }
 }

@@ -19,7 +19,7 @@
     mc:Ignorable="d"
   
     Visibility="{Binding VisibilityForDesign, RelativeSource={RelativeSource Self}}"
-    d:DesignHeight="480" d:DesignWidth="480">
+    d:DesignHeight="480" d:DesignWidth="1200">
 
     <UserControl.Resources>
         <Storyboard x:Name="showContent">
@@ -30,12 +30,46 @@
             <DoubleAnimation To="0" Storyboard.TargetName="LayoutRoot" Storyboard.TargetProperty="Opacity" />
             <DoubleAnimation To="90" Storyboard.TargetName="xProjection" Storyboard.TargetProperty="RotationX" />
         </Storyboard>
+
+
+
+        <Style x:Key="SimpleButtonTemplateStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerOver"/>
+                                    <VisualState x:Name="Pressed"/>
+                                    <VisualState x:Name="Disabled"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                    <VisualState x:Name="PointerFocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="3">
+                                <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot">
+        <Grid x:Name="LayoutRoot">
         <Rectangle Fill="{StaticResource ApplicationPageBackgroundThemeBrush}" Opacity="0.6"/>
-        <Border x:Name="content" VerticalAlignment="Top" Background="{Binding Background, ElementName=RmaControl}">
-            <Grid Margin="24">
+        <Border x:Name="content" VerticalAlignment="Top" 
+                Background="{Binding Background, ElementName=RmaControl}" 
+                BorderThickness="2" 
+                BorderBrush="{Binding BorderBrush, ElementName=RmaControl}">
+            <Grid Margin="24" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -52,8 +86,20 @@
                 <TextBlock x:Name="message" Grid.ColumnSpan="2" Grid.Row="1" Margin="12,12,12,12" HorizontalAlignment="Left" 
                            Style="{StaticResource BodyTextBlockStyle}"  TextWrapping="Wrap" Foreground="{Binding Foreground, ElementName=RmaControl}" Text="Nulla consectetur sem a sodales sodales. Fusce ac risus molestie est venenatis gravida vitae a ipsum." />
 
-                <Button x:Name="yesButton" Margin="0,0,0,0" Grid.Row="2" BorderBrush="{Binding Foreground, ElementName=RmaControl}" Foreground="{Binding Foreground, ElementName=RmaControl}" Content="Donec suscipit" />
-                <Button x:Name="noButton" Margin="0,0,0,0" Grid.Row="2" Grid.Column="1" BorderBrush="{Binding Foreground, ElementName=RmaControl}" Foreground="{Binding Foreground, ElementName=RmaControl}" Content="Nulla nec" />
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" >
+                        <Button x:Name="yesButton"    
+                            BorderBrush="{Binding Foreground, ElementName=RmaControl}" 
+                            Foreground="{Binding Foreground, ElementName=RmaControl}" 
+                            Style="{StaticResource  SimpleButtonTemplateStyle}"
+                                
+                            Content="Donec suscipit" HorizontalAlignment="Right" Margin="30,0,30,0"   />
+                        <Button x:Name="noButton"  
+                                BorderBrush="{Binding Foreground, ElementName=RmaControl}" 
+                                Foreground="{Binding Foreground, ElementName=RmaControl}"
+                                Style="{StaticResource  SimpleButtonTemplateStyle}"
+                                Content="Nulla nec" HorizontalAlignment="Right" Margin="30,0,30,0"/>
+                </StackPanel>
+            
 
             </Grid>
             <Border.Projection>

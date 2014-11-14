@@ -64,6 +64,30 @@ namespace RateMyAppLib.Controls
             DependencyProperty.Register("Background", typeof(Brush), typeof(FeedbackOverlay), new PropertyMetadata(new SolidColorBrush(Colors.Black)));
         #endregion
 
+        // Using a DependencyProperty as the backing store for BorderThickness.  This enables animation, styling, binding, etc...
+        #region BorderThickness Dependency Property
+        public new Thickness BorderThickness
+        {
+            get { return (Thickness)GetValue(BorderThicknessProperty); }
+            set { SetValue(BorderThicknessProperty, new Thickness(double.Parse(value.ToString()))); }
+        }
+
+        public new static readonly DependencyProperty BorderThicknessProperty =
+            DependencyProperty.Register("BorderThickness", typeof(Thickness), typeof(FeedbackOverlay), new PropertyMetadata(new Thickness(0)));
+        #endregion
+
+        // Using a DependencyProperty as the backing store for BorderBrush.  This enables animation, styling, binding, etc...
+        #region BorderBrush Dependency Property
+        public new Brush BorderBrush
+        {
+            get { return (Brush)GetValue(BorderBrushProperty); }
+            set { SetValue(BorderBrushProperty, value); }
+        }
+
+        public new static readonly DependencyProperty BorderBrushProperty =
+            DependencyProperty.Register("BorderBrush", typeof(Brush), typeof(FeedbackOverlay), new PropertyMetadata(new SolidColorBrush(Colors.Transparent)));
+        #endregion
+
         // Using a DependencyProperty as the backing store for Foreground.  This enables animation, styling, binding, etc...
         #region Foreground Dependency Property
         public new Brush Foreground
@@ -842,18 +866,21 @@ namespace RateMyAppLib.Controls
                 Package.Current.Id.Version.Minor, 
                 Package.Current.Id.Version.Build, 
                 Package.Current.Id.Version.Revision };
-            Object[] applicationFullTitle = new Object[] { String.Format("{0}.{1}.{2}.{3}", major) };
+            //Object[] applicationFullTitle = new Object[] { String.Format("{0}.{1}.{2}.{3}", major) };
 
             // Body text including hardware, firmware and software info
             string body = string.Format(FeedbackOverlay.GetFeedbackBody(this),
                  easClientDeviceInformation.SystemProductName,
                  easClientDeviceInformation.SystemManufacturer,
-                 String.Format("{0}.{1}.{2}.{3}", major),
+                 string.Format("{0}.{1}.{2}.{3}", major),
+                 "",
+                 "",
                  company);
 
+            string Subject = string.Format(FeedbackOverlay.GetFeedbackSubject(this),GetApplicationName());
+
             // Send an Email with attachment
-          
-            Uri uriToLaunch = new Uri(String.Format("mailto:{0}?subject={1}&body={2}", FeedbackOverlay.GetFeedbackTo(this), string.Format(FeedbackOverlay.GetFeedbackSubject(this), GetApplicationName()), body));
+            Uri uriToLaunch = new Uri(String.Format("mailto:{0}?subject={1}&body={2}", FeedbackOverlay.GetFeedbackTo(this), Subject , body));
             await Launcher.LaunchUriAsync(uriToLaunch);
 
 		
