@@ -138,24 +138,17 @@ namespace RateMyApp.Helpers
         /// </summary>
         public void Launching()
         {
-#if SILVERLIGHT		
-            var license = new Microsoft.Phone.Marketplace.LicenseInformation();
-#else
-			var license = Windows.ApplicationModel.Store.CurrentApp.LicenseInformation;
-#endif
-            // Only load state if app is not trial, app is not activated after
-            // being tombstoned, and state has not been loaded before.
-#if SILVERLIGHT		
-            if (!license.IsTrial() && 
-                PhoneApplicationService.Current.StartupMode == StartupMode.Launch && 
-#else
-            if (!license.IsTrial && 
-#warning The app state is no longer checked, this needs a review
-#endif
-                State == FeedbackState.Active)
-            {
+            //not needed?
+            //var license = Windows.ApplicationModel.Store.CurrentApp.LicenseInformation;
+
+            //// Only load state if app is not trial, app is not activated after
+            //// being tombstoned, and state has not been loaded before.
+
+            //if (!license.IsTrial && 
+            //    State == FeedbackState.Active)
+            //{
                 LoadState();
-            }
+            //}
 
             // Uncomment for testing
             // State = FeedbackState.FirstReview;
@@ -191,11 +184,8 @@ namespace RateMyApp.Helpers
             {
                 LaunchCount = StorageHelper.GetSetting<int>(LaunchCountKey);
                 IsReviewed = StorageHelper.GetSetting<bool>(ReviewedKey);
-#if SILVERLIGHT
-                LastLaunchDate = StorageHelper.GetSetting<DateTime>(LastLaunchDateKey);
-#else
+
                 LastLaunchDate = DateTime.FromBinary(StorageHelper.GetSetting<long>(LastLaunchDateKey));
-#endif
 
                 if (!reviewed)
                 {
@@ -232,11 +222,8 @@ namespace RateMyApp.Helpers
             {
                 StorageHelper.StoreSetting(LaunchCountKey, LaunchCount, true);
                 StorageHelper.StoreSetting(ReviewedKey, reviewed, true);
-#if SILVERLIGHT
-                StorageHelper.StoreSetting(LastLaunchDateKey, lastLaunchDate, true);
-#else
                 StorageHelper.StoreSetting(LastLaunchDateKey, lastLaunchDate.ToBinary(), true);
-#endif				
+				
                 StorageHelper.FlushToStorage();
             }
             catch (Exception ex)
@@ -255,18 +242,10 @@ namespace RateMyApp.Helpers
             }
         }
 
-#if SILVERLIGHT
-        public void Review()
-#else
         public async void Review()
-#endif
         {
             Reviewed();
 
-#if SILVERLIGHT
-            var marketplace = new MarketplaceReviewTask();
-            marketplace.Show();
-#else
             string appid = "";
             var uri = new System.Uri("ms-appx:///AppxManifest.xml");
             StorageFile file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(uri);
@@ -289,7 +268,7 @@ namespace RateMyApp.Helpers
             }
 
             await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + appid));
-#endif
+
         }
     }
 }

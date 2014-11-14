@@ -11,11 +11,34 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <controls:FeedbackOverlay x:Name="FeedbackOverlay"
                               Grid.RowSpan="2"
-                                  FirstCount="1"
+                                  FirstCount="2"
                               FeedbackTo="YourEmail@Email.com"
                               ApplicationName="YourAppName-Here"
                               CompanyName="YourCompanyName-Here"
                               VerticalAlignment="Center"
                               />
+
+        <!-- Fully customized FeedbackOverlay component -->
+        <!--
+        <ctrl:FeedbackOverlay Grid.RowSpan="2"
+                              EnableAnimation="True"
+                              RatingTitle="RatingTitle"
+                              RatingMessage1="Rating Message 1"
+                              RatingMessage2="Rating Message 2"
+                              RatingYes="Yes"
+                              RatingNo="No"
+                              FeedbackTitle="FeedbackTitle"
+                              FeedbackMessage1="Feedback Message 1"
+                              FeedbackYes="Yes"
+                              FeedbackNo="No"
+                              FeedbackTo="{Binding Path=LocalizedResources.FeedbackTo, Source={StaticResource LocalizedStrings}}"
+                              FeedbackSubject="Feedback Subject"
+                              FeedbackBody="Feedback Body"
+                              CompanyName="MyCompany"
+                              FirstCount="5"
+                              SecondCount="10"
+                              CountDays="False"
+                              />
+        -->
     </Grid>
 </Page>
